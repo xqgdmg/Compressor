@@ -38,15 +38,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        actualImageView = (ImageView) findViewById(R.id.actual_image);
-        compressedImageView = (ImageView) findViewById(R.id.compressed_image);
-        actualSizeTextView = (TextView) findViewById(R.id.actual_size);
-        compressedSizeTextView = (TextView) findViewById(R.id.compressed_size);
+        initView();
 
         actualImageView.setBackgroundColor(getRandomColor());
         clearImage();
     }
 
+    private void initView() {
+        actualImageView = (ImageView) findViewById(R.id.actual_image);
+        compressedImageView = (ImageView) findViewById(R.id.compressed_image);
+        actualSizeTextView = (TextView) findViewById(R.id.actual_size);
+        compressedSizeTextView = (TextView) findViewById(R.id.compressed_size);
+    }
+
+    /*
+     * 选择照片
+     */
     public void chooseImage(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
@@ -55,17 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void compressImage(View view) {
         if (actualImage == null) {
-            showError("Please choose an image!");
+            showError("请选择照片!");
         } else {
-
-            // Compress image in main thread
-            //compressedImage = Compressor.getDefault(this).compressToFile(actualImage);
-            //setCompressedImage();
-
-            // Compress image to bitmap in main thread
-            /*compressedImageView.setImageBitmap(Compressor.getDefault(this).compressToBitmap(actualImage));*/
-
-            // Compress image using RxJava in background thread
             Compressor.getDefault(this)
                     .compressToFileAsObservable(actualImage)
                     .subscribeOn(Schedulers.io())
@@ -85,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * 自定义压缩
+     */
     public void customCompressImage(View view) {
         if (actualImage == null) {
             showError("Please choose an image!");
