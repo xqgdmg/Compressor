@@ -1,3 +1,6 @@
+Discovery 项目中使用 七牛上传图片的时候有用到这个库
+
+
 Compressor
 ======
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Compressor-blue.svg?style=flat)](http://android-arsenal.com/details/1/3758)
