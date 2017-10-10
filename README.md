@@ -1,4 +1,4 @@
-Discovery 项目中使用 七牛上传图片的时候有用到这个库
+Discovery 项目中使用 七牛上传声音的时候有用到这个库
 
 
 Compressor
